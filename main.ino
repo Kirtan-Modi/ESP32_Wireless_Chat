@@ -13,7 +13,7 @@ uint8_t peerMAC[] = {0xEF, 0x34, 0x56, 0x78, 0x90, 0xAB}; // MAC address of othe
 
 typedef struct Message {
   char sender[20];
-  char text[180];
+  char text[500];
 } Message;
 
 Message outgoing;
