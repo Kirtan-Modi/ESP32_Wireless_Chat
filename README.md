@@ -199,10 +199,3 @@ uint8_t broadcastMAC[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 | Range | ~200m | ~200m |
 
 ---
-
-## Author
-
-**Kirtan Modi**  
-B.E. Electronics & Communication Engineering  
-L.D. College of Engineering, Ahmedabad  
-[GitHub](https://github.com/Kirtan Modi) · [LinkedIn](https://www.linkedin.com/in/kirtanmodi-32b9b0322)
