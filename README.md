@@ -136,28 +136,73 @@ My MAC: 7C:9E:BD:F0:22:A1
 
 ---
 
-## Project Structure
+## Broadcast Mode — Multiple Devices
+
+Extends the two-way chat to support **unlimited ESP32 devices**. Any message sent is received by all nearby ESP32s running the same sketch — no MAC address registration needed.
 
 ```
-Communication_using_ESP32/
-│
-├── ESP32_Chat_A/
-│   └── ESP32_Chat_A.ino       # Flash on ESP32 A
-│
-├── ESP32_Chat_B/
-│   └── ESP32_Chat_B.ino       # Flash on ESP32 B
-│
-└── README.md
+PC ──UART──► ESP32 A ──ESP-NOW Broadcast──► ESP32 B
+                                        ──► ESP32 C
+                                        ──► ESP32 D
+                                        (all receive it)
 ```
+
+### How Broadcast Works
+
+ESP-NOW has a built-in broadcast MAC address `FF:FF:FF:FF:FF:FF`. Any ESP32 nearby running the same code will receive the message automatically.
+
+### Setup
+
+Flash the **same code** on all ESP32s — only change `myName` for each device. No MAC addresses needed.
+
+```cpp
+// ⚠️ Only change this line for each ESP32
+const char* myName = "ESP32-A"; // ESP32-B, ESP32-C, etc.
+
+uint8_t broadcastMAC[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+```
+
+### Broadcast Expected Output
+
+**ESP32-A** types a message:
+```
+[ME] Hello everyone!
+```
+
+**ESP32-B and ESP32-C** both receive:
+```
+---------------------------
+[ESP32-A] Hello everyone!
+---------------------------
+```
+
+**ESP32-B** replies:
+```
+[ME] Hey A, we got it!
+```
+
+**ESP32-A and ESP32-C** both receive:
+```
+---------------------------
+[ESP32-B] Hey A, we got it!
+---------------------------
+```
+
+### Two-Way vs Broadcast
+
+| Feature | Two-Way | Broadcast |
+|---|---|---|
+| Peers | 2 only | Unlimited |
+| MAC needed | Yes, specific MAC | No — uses `FF:FF:FF:FF:FF:FF` |
+| Setup per device | Different code | Same code, only change `myName` |
+| Message reaches | 1 device | All nearby devices |
+| Range | ~200m | ~200m |
 
 ---
 
-## Key Notes
+## Author
 
-- **No WiFi router needed** — ESP-NOW is a direct device-to-device protocol
-- **Range** — up to ~200m in open space
-- **Latency** — very low, typically under 10ms
-- Only prints an error status if a message **fails** to send — silent on success
-- MAC address format: `A4:CF:12:B5:77:3E` → `{0xA4, 0xCF, 0x12, 0xB5, 0x77, 0x3E}`
-
----
+**Kirtan Modi**  
+B.E. Electronics & Communication Engineering  
+L.D. College of Engineering, Ahmedabad  
+[GitHub](https://github.com/Kirtan Modi) · [LinkedIn](https://www.linkedin.com/in/kirtanmodi-32b9b0322)
