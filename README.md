@@ -161,10 +161,3 @@ Communication_using_ESP32/
 - MAC address format: `A4:CF:12:B5:77:3E` → `{0xA4, 0xCF, 0x12, 0xB5, 0x77, 0x3E}`
 
 ---
-
-## Author
-
-**Kirtan Modi**  
-B.E. Electronics & Communication Engineering  
-L.D. College of Engineering, Ahmedabad  
-[GitHub](https://github.com/Kirtan Modi) · [LinkedIn](https://www.linkedin.com/in/kirtanmodi-32b9b0322)
